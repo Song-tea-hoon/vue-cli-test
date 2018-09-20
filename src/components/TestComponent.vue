@@ -3,8 +3,10 @@
         <p>{{msg}}</p>
         <div class="menu">
             <ul>
-                <li v-for="item in menuLinks">
-                    <router-link :to="item.routerLink">{{item.name}}</router-link>
+                <li v-for="item in menuLinks" :key="item.id">
+                    <router-link :to="item.routerLink">
+                        <md-button class="md-raised">{{item.name}}</md-button>
+                    </router-link>
                 </li>
             </ul>
         </div>
@@ -13,14 +15,19 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import { MdButton } from 'vue-material/dist/components'
+
+Vue.use(MdButton)
+
 export default {
   name: 'TestComponent',
   data () {
     return {
       msg: '라우터 테스트 난 Parent',
       menuLinks: [
-        {name: 'child1', routerLink: '/test/child1'},
-        {name: 'child2', routerLink: '/test/child2'}
+        {id: 0, name: 'child1', routerLink: '/test/child1'},
+        {id: 1, name: 'child2', routerLink: '/test/child2'}
       ]
     }
   }

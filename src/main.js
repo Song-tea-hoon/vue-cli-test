@@ -3,13 +3,30 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import firebase from 'firebase'
 
 Vue.config.productionTip = false
 
-/* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
+let app
+
+// Initialize Firebase
+const config = {
+  apiKey: 'AIzaSyDJM5buDZlxVRAc_KkuDmPDiI2b5_p6uoo',
+  authDomain: 'portfolio-f3218.firebaseapp.com',
+  databaseURL: 'https://portfolio-f3218.firebaseio.com',
+  projectId: 'portfolio-f3218',
+  storageBucket: 'portfolio-f3218.appspot.com',
+  messagingSenderId: '235982987451'
+}
+firebase.initializeApp(config)
+firebase.auth().onAuthStateChanged((usser) => {
+  if (!app) {
+    /* eslint-disable no-new */
+    app = new Vue({
+      el: '#app',
+      router,
+      components: { App },
+      template: '<App/>'
+    })
+  }
 })
